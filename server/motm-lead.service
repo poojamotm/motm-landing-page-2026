@@ -1,0 +1,22 @@
+[Unit]
+Description=MOTM landing page lead endpoint (Node.js)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Environment=NODE_ENV=production
+EnvironmentFile=/etc/motm-lead.env
+WorkingDirectory=/opt/motm-lead
+# use the absolute path from `command -v node` if node is not in /usr/bin
+ExecStart=/usr/bin/node /opt/motm-lead/lead-server.js
+DynamicUser=yes
+StateDirectory=motm-lead
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target
